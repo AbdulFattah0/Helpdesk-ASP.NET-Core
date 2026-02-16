@@ -1,28 +1,88 @@
-# Helpdesk ASP.NET Core
+# Helpdesk Management System (ASP.NET Core)
 
-A simple Helpdesk management web app built with ASP.NET Core.  
-Includes Employee and Call features with basic reporting and PDF output.
+A Helpdesk management web application built using ASP.NET Core and Entity Framework Core.
+
+This project follows a layered architecture with:
+- DAL (Data Access Layer)
+- ViewModels
+- Web API + Static Frontend (HTML/CSS/JS)
+
+The data layer was generated using **Entity Framework Core Database-First (Scaffold-DbContext)** from an existing SQL Server database.
+
+---
 
 ## Features
-- Employee CRUD (create, view, update, delete)
-- Departments and Problems lookup
-- Calls logging
-- Reports page + generated PDF files
+
+- Employee management (CRUD)
+- Department and Problem lookup
+- Call logging and tracking
+- Reporting pages
+- Swagger API documentation
+- Static frontend pages served from wwwroot
+
+---
 
 ## Tech Stack
-- C# / ASP.NET Core
-- Entity Framework Core (SQL Server LocalDB)
+
+- C#
+- ASP.NET Core Web API
+- Entity Framework Core (Database-First)
+- SQL Server LocalDB
 - HTML, CSS, JavaScript
 
+---
+
+## Architecture
+
+- HelpdeskDAL → Entities + DbContext (scaffolded)
+- HelpdeskViewModels → Data transfer models
+- HelpdeskWebsite → Controllers + Frontend + API
+
+---
+
+## Database Setup
+
+This project uses **SQL Server LocalDB**.
+
+The database was created manually and then scaffolded into the project using:
+
+Scaffold-DbContext
+
+To run this project, you must create a local database named:
+
+HelpdeskDb
+
+Connection string used:
+
+Server=(localdb)\MSSQLLocalDB;Database=HelpdeskDb;Trusted_Connection=True;
+
+If the database does not exist, the application will not run correctly.
+
+---
+
 ## How to Run
-1. Open the solution in Visual Studio
-2. Make sure SQL Server LocalDB is installed
-3. Update the connection string if needed in `appsettings.json`
-4. Run the `HelpdeskWebsite` project
+
+1. Clone the repository
+2. Open the solution in Visual Studio
+3. Ensure SQL Server LocalDB is installed
+4. Make sure a database named `HelpdeskDb` exists
+5. Run the HelpdeskWebsite project
+6. Access the UI pages via:
+
+   https://localhost:xxxx/Home.html
+
+Swagger API documentation is available at:
+
+   https://localhost:xxxx/swagger
+
+---
 
 ## Notes
-- Database uses LocalDB: `HelpdeskDb`
-- Some pages are in `wwwroot` (HTML/JS)
+
+- This project was developed for academic purposes.
+- The database schema was designed first, then scaffolded into Entity Framework Core.
+- The connection string currently points to LocalDB.
+
 
 ## Screenshots
 <img width="2414" height="1399" alt="image" src="https://github.com/user-attachments/assets/3690be72-40b5-41f6-bd98-4d07af1615b2" />
