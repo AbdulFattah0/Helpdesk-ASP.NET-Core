@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Help Desk</title>
+    <meta charset="utf-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/report.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #28a745;
+        }
+
+            .navbar .navbar-brand, .navbar .nav-link {
+                color: white !important;
+            }
+
+                .navbar .nav-link:hover {
+                    text-decoration: underline;
+                }
+
+        .employee-container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+            .employee-container img {
+                border-radius: 50%;
+                border: 2px solid #28a745;
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .employee-container p {
+                font-size: 18px;
+                color: #333;
+                margin-top: 10px;
+            }
+
+            .employee-container button {
+                margin: 10px;
+                padding: 10px 20px;
+                border: none;
+                background-color: #28a745;
+                color: white;
+                font-weight: bold;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .employee-container button:hover {
+                    background-color: #218838;
+                }
+
+        #lblstatus {
+            margin-top: 20px;
+            color: #721c24;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/home.html">Case #2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/employee.html">Employee</a></li>
+                <li class="nav-item"><a class="nav-link" href="Call.html">Calls</a></li>
+                <li class="nav-item"><a class="nav-link" href="Report.html">Report</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="employee-container">
+        <img class="photo" src="img/logo.jpeg" alt="Help Desk Logo" />
+        <p>Help Desk Version 2.0</p>
+        <button id="employeebutton">Generate Employees Report</button>
+        <button id="callbutton">Generate Calls Report</button>
+        <div id="lblstatus"></div>
+    </div>
+</body>
+</html>

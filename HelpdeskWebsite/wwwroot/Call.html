@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calls</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/Call.js"></script>
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/lib/js/bootstrap.min.js"></script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🔧%3C/text%3E%3C/svg%3E" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        header nav {
+            background-color: #28a745;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            header nav ul {
+                display: flex;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                flex-grow: 1;
+            }
+
+                header nav ul li {
+                    margin-right: 15px;
+                }
+
+                    header nav ul li:last-child {
+                        margin-left: auto;
+                    }
+
+                    header nav ul li a {
+                        text-decoration: none;
+                        color: white;
+                        font-weight: normal;
+                        font-size: 18px;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                    }
+
+                        header nav ul li a:hover {
+                            background-color: #218838;
+                            color: #fff;
+                        }
+
+        #searchInput {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            margin-left: auto;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #28a745;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #btnAddCall {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            #btnAddCall:hover {
+                background-color: #218838;
+            }
+
+        #callsTable {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+            #callsTable thead {
+                background-color: #28a745;
+                color: #ffffff;
+                font-weight: bold;
+            }
+
+            #callsTable th,
+            #callsTable td {
+                padding: 15px;
+                border: 1px solid #dddddd;
+                text-align: center;
+            }
+
+            #callsTable tbody tr:nth-child(odd) {
+                background-color: #f9f9f9;
+            }
+
+            #callsTable tbody tr:hover {
+                background-color: #f1f1f1;
+                transition: background-color 0.3s ease;
+                cursor: pointer;
+            }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 40%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .modal-header h2 {
+                margin: 0;
+                color: #28a745;
+                font-size: 1.5rem;
+            }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover {
+                color: #000;
+            }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+                font-size: 0.9rem;
+            }
+
+            .form-group select,
+            .form-group textarea,
+            .form-group input {
+                width: 100%;
+                padding: 6px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 0.9rem;
+            }
+
+            .form-group textarea {
+                resize: vertical;
+            }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+            .modal-footer button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .modal-footer .btn-add {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            .modal-footer .btn-cancel {
+                background-color: #dc3545;
+                color: #fff;
+            }
+
+            .modal-footer button:hover {
+                opacity: 0.9;
+            }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .photo {
+            display: block;
+            margin: 15px auto;
+            width: 100px;
+            height: auto;
+            border-radius: 50%;
+            border: 2px solid #28a745;
+        }
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li> <a  href="/home.html">Case #2</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="employee.html">Employees</a></li>
+                <li><a href="call.html">Calls</a></li>
+                <li><a href="Report.html">Report</a></li>
+                <li><input type="text" id="searchInput" placeholder="Search by Employee Name"></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <img class="photo" src="img/logo.jpeg" alt="Helpdesk Logo" />
+        <h1>Helpdesk 2.0</h1>
+        <button id="btnAddCall">Add New Call</button>
+        <div id="messageDiv" class="message" style="display: none;"></div>
+
+        <table id="callsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>FOR</th>
+                    <th>Problem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added here via JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Call Modal -->
+    <div id="callModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Call Information</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <img class="photo" src="img/logo.jpeg" alt="Helpdesk Logo" />
+            <form id="callForm">
+                <div class="form-group">
+                    <label for="problemSelect">Problem:</label>
+                    <select id="problemSelect" class="form-control"></select>
+                    <div class="error-message text-danger small"></div>
+                </div>
+                <div class="form-group">
+                    <label for="employeeSelect">Employee:</label>
+                    <select id="employeeSelect" class="form-control"></select>
+                    <div class="error-message text-danger small"></div>
+                </div>
+                <div class="form-group">
+                    <label for="technicianSelect">Technician:</label>
+                    <select id="technicianSelect" class="form-control"></select>
+                    <div class="error-message text-danger small"></div>
+                </div>
+                <div class="form-group">
+                    <label for="dateOpened">Date Opened:</label>
+                    <input type="text" id="dateOpened" name="dateOpened" readonly>
+
+                </div>
+                <div class="form-group">
+                    <label for="dateClosed">Date Closed:</label>
+                    <input type="text" id="dateClosed" name="dateClosed" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="closeCall">Close Call:</label>
+                    <input type="checkbox" id="closeCall" name="closeCall">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" class="form-control" maxlength="250"></textarea>
+                    <div class="error-message text-danger small"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" id="delete">Delete</button>
+                    <button type="submit" class="Update">update</button>
+                    <button type="submit" class="btn-add" style="display: none;">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

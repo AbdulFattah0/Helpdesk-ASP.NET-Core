@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee </title>
+    <meta charset="utf-8" />
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/lib/js/bootstrap.min.js"></script>
+    <script src="/js/employee.js"></script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🔧%3C/text%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #28a745; 
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .employee-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .employee-list-container {
+            width: 100%;
+            max-width: 90%;
+        }
+
+        .photo {
+            display: block;
+            margin: 20px auto;
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            border: 2px solid #28a745;
+        }
+
+        .employee-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: separate;
+            border-spacing: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+            .employee-table thead {
+                background-color: #28a745;
+                color: #ffffff;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .employee-table th, .employee-table td {
+                padding: 15px;
+                border: 1px solid #dddddd;
+                text-align: center;
+            }
+
+            .employee-table tbody tr:nth-child(odd) {
+                background-color: #f9f9f9;
+            }
+
+            .employee-table tbody tr:hover {
+                background-color: #f1f1f1;
+                transition: background-color 0.3s ease;
+            }
+
+            .employee-table tbody td {
+                vertical-align: middle;
+            }
+
+            .employee-table .thead-light th {
+                border-top: 2px solid #28a745;
+            }
+
+        .employee-container p {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            background-color: #28a745;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-weight: bold;
+        }
+
+        .btn-close {
+            background: #fff;
+            color: #28a745;
+            border-radius: 50%;
+            border: 1px solid #fff;
+        }
+
+        .modal-body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+            .modal-body .photo {
+                width: 120px;
+                height: auto;
+                border-radius: 50%;
+                border: 2px solid #28a745;
+                margin-bottom: 10px;
+            }
+
+            .modal-body p {
+                color: #333;
+                font-weight: bold;
+                margin-top: -10px;
+                margin-bottom: 20px;
+            }
+
+        .card {
+            border: 1px solid #28a745;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            background-color: #28a745;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 15px;
+            background-color: white;
+        }
+
+        .modal-footer {
+            background-color: #f8f9fa;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+            .modal-footer .btn {
+                padding: 10px 20px;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #218838;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+        #dialog {
+            padding: 15px;
+            border: 2px solid #dc3545;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+            #dialog strong {
+                font-size: 16px;
+            }
+
+            #dialog .mt-2 button {
+                width: 80px;
+            }
+
+        .modal-footer #dialog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+            .modal-footer #dialog .mt-2 {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+
+        #topStatus {
+            margin-bottom: 20px;
+        }
+
+        table {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/home.html">Case #1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/employee.html">Employee </a></li>
+                <li class="nav-item"><a class="nav-link" href="Call.html">Calls </a></li>
+                <li class="nav-item"><a class="nav-link" href="Report.html">Report </a></li>
+            </ul>
+            <form>
+                <input class="form-control" type="search" placeholder="Search" id="srch" aria-label="Search"
+                       style="width:10vw;margin-right:5vw;">
+            </form>
+        </div>
+    </nav>
+
+    <!-- Employee Container with Table and Image -->
+    <div class="employee-container">
+        <img class="photo" src="img/logo.jpeg" alt="Employee Photo" />
+        <p>Help Desk Version 1.0</p>
+
+        <div class="employee-list-container">
+            <div id="topStatus" class="alert text-center" style="display:none;"></div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Current Employees</h2>
+                <button type="button" class="btn btn-primary" id="addEmployeeButton">+ Add Employee</button>
+            </div>
+            <table class="table table-bordered employee-table" id="employeeTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>First</th>
+                        <th>Last</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeList">
+                    <!-- Employee rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Add/Update Employee -->
+    <div class="modal fade" id="employeeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle">Add/Update Employee</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="photo" src="img/logo.jpeg" alt="Employee Photo" />
+                    <p>Help Desk Version 1.0</p>
+                    <div class="card mx-auto" style="max-width: 80%;">
+                        <div class="card-header text-center">Add/Update Employee</div>
+                        <div class="card-body">
+                            <!-- Form Starts Here -->
+                            <form id="EmployeeModalForm" name="EmployeeModalForm" method="post" action="">
+                                <div class="row mb-3">
+                                    <div class="col-4">Title:</div>
+                                    <div class="col-8">
+                                        <input type="text" id="TextBoxTitle" name="TextBoxTitle" class="form-control" placeholder="Title" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-4">First Name:</div>
+                                    <div class="col-8">
+                                        <input type="text" id="TextBoxFirstName" name="TextBoxFirstName" class="form-control" placeholder="First Name" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-4">Surname:</div>
+                                    <div class="col-8">
+                                        <input type="text" id="TextBoxSurname" name="TextBoxSurname" class="form-control" placeholder="Surname" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-4">Email:</div>
+                                    <div class="col-8">
+                                        <input type="email" id="TextBoxEmail" name="TextBoxEmail" class="form-control" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-4">Phone Number:</div>
+                                    <div class="col-8">
+                                        <input type="text" id="TextBoxPhone" name="TextBoxPhone" class="form-control" placeholder="Phone Number" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-4">Department:</div>
+                                    <div class="col-8">
+                                        <select id="ddlDepartments" name="ddlDepartments" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-4">Picture:</div>
+                                    <div class="col-8" id="imageHolder"></div>
+                                </div>
+                                <input type="hidden" id="employeeId" name="employeeId" />
+                            </form>
+                            <!-- Form Ends Here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Delete Confirmation Dialog -->
+                    <div id="dialog" class="alert alert-danger text-center" role="alert" style="display: none; margin-top: 10px;">
+                        <strong>Are you sure you want to delete this employee?</strong>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-danger mx-2" id="yesbutton">Yes</button>
+                            <button type="button" class="btn btn-secondary mx-2" id="nobutton">No</button>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="row border m-2 p-2">
+                        <label for="uploader">Choose Different Picture?</label>
+                        <input type="file" id="uploader" class="text-center btn btn-outline-secondary" />
+                        <div id="uploadstatus" class="text-left"></div>
+                    </div>
+                    <div class="text-center w-100">
+                        <button type="button" class="btn btn-secondary" id="actionbutton">Update</button>
+                        <button type="button" class="btn btn-danger" id="deletebutton">Delete</button>
+                    </div>
+                    <div id="modalstatus" class="text-center mt-3 mb-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Structure for Adding New Employee -->
+    <div class="modal fade" id="addEmployeeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="addModalTitle">Add New Employee</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="photo" src="img/logo.jpeg" alt="Employee Photo" />
+                    <p>Help Desk Version 1.0</p>
+                    <div class="card mx-auto" style="max-width: 80%;">
+                        <div class="card-header text-center">Add New Employee</div>
+                        <div class="card-body">
+                            <!-- Form Fields -->
+                            <div class="row mb-3">
+                                <div class="col-4">Title:</div>
+                                <div class="col-8">
+                                    <input type="text" id="AddTextBoxTitle" class="form-control" placeholder="Title" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">First Name:</div>
+                                <div class="col-8">
+                                    <input type="text" id="AddTextBoxFirstName" class="form-control" placeholder="First Name" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">Surname:</div>
+                                <div class="col-8">
+                                    <input type="text" id="AddTextBoxSurname" class="form-control" placeholder="Surname" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">Email:</div>
+                                <div class="col-8">
+                                    <input type="email" id="AddTextBoxEmail" class="form-control" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">Phone Number:</div>
+                                <div class="col-8">
+                                    <input type="text" id="AddTextBoxPhone" class="form-control" placeholder="Phone Number" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">Department:</div>
+                                <div class="col-8">
+                                    <select id="AddDdlDepartments" name="AddDdlDepartments" class="form-control"></select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="addNewEmployeeButton">Add Employee</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

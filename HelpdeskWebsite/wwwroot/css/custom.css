@@ -1,0 +1,39 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.navbar {
+  background-color: #287da7; /* Custom green bar */
+}
+
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #287da7;
+  color: white;
+}
+
+#lookupButton {
+  background-color: #287da7;
+  color: white;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 10px 0;
+  background-color: #287da7;
+  color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .modal-dialog {
+    max-width: 100%;
+    margin: 10px;
+  }
+  .modal-header img {
+    max-width: 40px;
+  }
+}
